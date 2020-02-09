@@ -1,0 +1,15 @@
+{
+  "Ateam": [
+    {
+      "$ref": "data.json#persons/0"
+    }
+  ],
+  "Bteam": [
+    {
+      "$ref": "data.json#persons/0"
+    },
+    {
+      "$ref": "data.json#persons/1"
+    }
+  ]
+}

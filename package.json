@@ -1,0 +1,56 @@
+{
+  "name": "lazy-json-ref",
+  "version": "0.0.0-development",
+  "description": "Javascript - Dynamic Json Reference ($ref) Resolver",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:all": "npm i && npm run build && npm i --package-lock",
+    "build:tests": "tsc -p test",
+    "test": "npm run build && mocha",
+    "test:all": "npm run build && npm run test:node && npm run test:browser && npm run test:typescript && npm run lint",
+    "test:node": "mocha",
+    "test:browser": "karma start --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seesharpsoft/lazy-json-ref.git"
+  },
+  "keywords": [
+    "js",
+    "json",
+    "schema",
+    "reference",
+    "dynamic",
+    "resolve",
+    "lazy"
+  ],
+  "author": "Martin Sommer <mail@seesharpsoft.net>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/seesharpsoft/lazy-json-ref/issues"
+  },
+  "homepage": "https://github.com/vivocha/jsonref#readme",
+  "dependencies": {
+    "json-schema-ref-parser": "^7.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0",
+    "typescript": "^3.7.5",
+    "chai": "^4.2.0",
+    "karma": "^4.4.1",
+    "karma-cli": "^2.0.0",
+    "karma-config": "^2.0.0",
+    "mocha": "^7.0.1"
+  }
+}

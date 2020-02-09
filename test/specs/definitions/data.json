@@ -1,0 +1,34 @@
+{
+  "persons": [
+    {
+      "firstName": "Fred",
+      "lastName": "Fuchs",
+      "age": 12,
+      "hometown": {
+        "$ref": "#/towns/York"
+      }
+    },
+    {
+      "firstName": "Bert",
+      "lastName": "Knerz",
+      "age": 42,
+      "hometown": {
+        "$ref": "#../towns/Berlin"
+      }
+    }
+  ],
+  "towns": {
+    "Paris": {
+      "name": "Paris",
+      "country": "France"
+    },
+    "Berlin": {
+      "name": "Berlin",
+      "country": "Germany"
+    },
+    "York": {
+      "name": "York",
+      "country": "United Kingdom"
+    }
+  }
+}
