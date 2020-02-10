@@ -5,9 +5,9 @@ import { LAZY_JSON_FILE, LazyJson } from "../index";
 import { Parser } from "../parser";
 
 export class FileCache {
-    private cache: Record<string, any>;
-
     static GLOBAL:FileCache = new FileCache();
+
+    private cache: Record<string, any>;
 
     constructor() {
         this.reset();
@@ -17,7 +17,7 @@ export class FileCache {
         this.cache = {};
     }
 
-    add(filePath: string, json: any) {
+    set(filePath: string, json: any) {
         this.cache[filePath] = json;
     }
 
@@ -41,9 +41,15 @@ export function getBasePath(context: any) {
 
 export abstract class ExternalResolver implements Resolver {
     private parser:Parser;
+    private fileCache:FileCache;
 
-    constructor() {
+    constructor(instanceCache?:boolean) {
         this.parser = new Parser();
+        if (instanceCache) {
+            this.fileCache = new FileCache();
+        } else {
+            this.fileCache = FileCache.GLOBAL;
+        }
     }
 
     readonly priority: number = Priority.LOWEST;
@@ -56,16 +62,16 @@ export abstract class ExternalResolver implements Resolver {
         let basePath = getBasePath(context),
             filePath = basePath ? basePath + "/" + $ref : $ref,
             json = null;
-        if (!(FileCache.GLOBAL.contains(filePath))) {
+        if (!(this.fileCache.contains(filePath))) {
             json = this.getJsonFromFile(filePath);
             if (json) {
                 json = this.parser.parse(json);
                 Object.defineProperty(json, LAZY_JSON_FILE, { value: filePath});
             }
-            FileCache.GLOBAL.add(filePath, json);
+            this.fileCache.set(filePath, json);
         }
 
-        return FileCache.GLOBAL.get(filePath);
+        return this.fileCache.get(filePath);
     }
 
     abstract getJsonFromFile(path: string): any;

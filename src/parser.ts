@@ -55,47 +55,47 @@ export class Parser {
     }
 
     parse(value: any, parent?: any, key?: string | number): any {
-        let target: any = null;
         if (key === REFERENCE_PROPERTY) {
             return null;
         } else if (this.isPrimitiveType(value)) {
             return value;
         } else if (this.visited(value)) {
             return value[LAZY_JSON_MARKER];
-        } else {
-            target = Array.isArray(value) ? [] : {};
-            Object.defineProperty(target, LAZY_JSON_PARENT, {value: parent, configurable: true});
-            Object.defineProperty(target, LAZY_JSON_PARENT_PATH, {value: key, configurable: true});
-            Object.defineProperty(value, LAZY_JSON_MARKER, {value: target});
-            Object.keys(value).forEach(function (key: string) {
-                let parserResult = this.parse(value[key], target, key);
-                if (parserResult === null) {
-                    return;
-                }
-                if ((parserResult).constructor === Function) {
-                    Object.defineProperty(target, key, {
-                        enumerable: true,
-                        configurable: true,
-                        get: parserResult
-                    })
-                } else {
-                    Object.defineProperty(target, key, {
-                        enumerable: true,
-                        configurable: true,
-                        writable: true,
-                        value: parserResult
-                    });
-                }
-            }.bind(this));
+        }
+        let target: any = Array.isArray(value) ? [] : {};
 
-            if (REFERENCE_PROPERTY in value) {
-                if (parent !== undefined && key !== undefined) {
-                    target = this.createLazyReference(parent, key, target, value[REFERENCE_PROPERTY]);
-                } else {
-                    target = this.resolve(value[REFERENCE_PROPERTY], target);
-                }
+        Object.defineProperty(target, LAZY_JSON_PARENT, {value: parent, configurable: true});
+        Object.defineProperty(target, LAZY_JSON_PARENT_PATH, {value: key, configurable: true});
+        Object.defineProperty(value, LAZY_JSON_MARKER, {value: target});
+        Object.keys(value).forEach(function (key: string) {
+            let parserResult = this.parse(value[key], target, key);
+            if (parserResult === null) {
+                return;
+            }
+            if ((parserResult).constructor === Function) {
+                Object.defineProperty(target, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get: parserResult
+                })
+            } else {
+                Object.defineProperty(target, key, {
+                    enumerable: true,
+                    configurable: true,
+                    writable: true,
+                    value: parserResult
+                });
+            }
+        }.bind(this));
+
+        if (REFERENCE_PROPERTY in value) {
+            if (parent !== undefined && key !== undefined) {
+                target = this.createLazyReference(parent, key, target, value[REFERENCE_PROPERTY]);
+            } else {
+                target = this.resolve(value[REFERENCE_PROPERTY], target);
             }
         }
+
         return target;
     }
 }
