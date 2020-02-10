@@ -1,0 +1,22 @@
+{
+  "persons": [
+    {
+      "firstName": "Martin",
+      "lastName": "Sommer",
+      "age": 40
+    },
+    {
+      "firstName": "Bert",
+      "lastName": "Knerz",
+      "age": 420
+    }
+  ],
+  "winner": {
+    "$ref": "#/persons/1",
+    "win": "1000"
+  },
+  "looser": {
+    "win": "1",
+    "$ref": "#../persons/0"
+  }
+}

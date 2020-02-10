@@ -13,7 +13,7 @@
       "lastName": "Knerz",
       "age": 42,
       "hometown": {
-        "$ref": "#../towns/Berlin"
+        "$ref": "#../../../towns/Berlin"
       }
     }
   ],

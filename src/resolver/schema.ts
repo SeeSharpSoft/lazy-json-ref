@@ -1,7 +1,8 @@
 "use strict";
 
 import { Resolver, Priority } from "./factory";
-import { LAZY_JSON_PARENT, LazyJson } from "../index";
+import { LazyJson } from "../index";
+import { LAZY_JSON_PARENT } from "../parser";
 
 export class SchemaResolver implements Resolver {
     readonly priority: number = Priority.HIGHEST;
