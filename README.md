@@ -32,15 +32,15 @@ pets.json
 ```
 let json = LazyJson.create("/test/specs/definitions/pets.json"); // argument can also be a json object itself
 
-console.log(json.properties.cat.required);
+json.properties.cat.required
 > ["name", "breed", "age"]
 
-console.log(json.properties.dog.type);
+json.properties.dog.type
 > "object"
 
 ```
 
-**What is special about that?**
+**What's special about it?**
 
 The reference is resolved lazy on request (**not** in `LazyJson.create`) without any additional function call or de-reference handling. Works also with referencing .json files. That's ~crazy~ lazy, isn't it?
 
