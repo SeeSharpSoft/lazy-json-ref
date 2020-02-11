@@ -42,7 +42,7 @@ console.log(json.properties.dog.type);
 
 **What is special about that?**
 
-The reference is resolved lazy on request (**not** in `LazyJson.create`) without any additional function call or derefernce handling. Works also with referenced .json files. That's ~crazy~ lazy, isn't it?
+The reference is resolved lazy on request (**not** in `LazyJson.create`) without any additional function call or de-reference handling. Works also with referencing .json files. That's ~crazy~ lazy, isn't it?
 
 Further examples can be found [here](https://github.com/SeeSharpSoft/lazy-json-ref/tree/master/test/specs/definitions).
 
