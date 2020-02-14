@@ -40,9 +40,8 @@
   "bugs": {
     "url": "https://github.com/seesharpsoft/lazy-json-ref/issues"
   },
-  "homepage": "https://github.com/vivocha/jsonref#readme",
+  "homepage": "https://github.com/seesharpsoft/lazy-json-ref",
   "dependencies": {
-    "json-schema-ref-parser": "^7.1.3"
   },
   "devDependencies": {
     "@types/node": "^13.7.0",
